@@ -1,0 +1,20 @@
+
+  <h1>Biblioteca de PDFs</h1>
+  
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="pdfFile" accept=".pdf" required>
+    <button type="submit">Enviar PDF</button>
+  </form>
+  
+  <div class="pdf-list">
+    <h2>Livros Disponíveis:</h2>
+    <% if (files.length > 0) { %>
+      <% files.forEach(function(file) { %>
+        <a href="/download/<%= file %>" target="_blank"><%= file %></a>
+      <% }); %>
+    <% } else { %>
+      <p>Nenhum PDF enviado ainda.</p>
+    <% } %>
+  </div>
+</body>
+</html>
