@@ -87,22 +87,25 @@
 </head>
 <body>
   <div class="container">
-  <h1>Biblioteca de PDFs</h1>
-  
-  <form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="pdfFile" accept=".pdf" required>
-    <button type="submit">Enviar PDF</button>
-  </form>
-  
-  <div class="pdf-list">
-    <h2>Livros Disponíveis:</h2>
-    <% if (files.length > 0) { %>
-      <% files.forEach(function(file) { %>
-        <a href="/download/<%= file %>" target="_blank"><%= file %></a>
-      <% }); %>
-    <% } else { %>
-      <p>Nenhum PDF enviado ainda.</p>
-    <% } %>
+    <h1>Biblioteca de PDFs</h1>
+    
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="pdfFile" accept=".pdf" required>
+      <button type="submit">Enviar PDF</button>
+    </form>
+    
+    <div class="pdf-list">
+      <h2>Livros Disponíveis:</h2>
+      <% if (uploads.length > 0) { %>
+        <% uploads.forEach(function(upload) { %>
+          <a href="/download/<%= upload.savedName %>" target="_blank">
+            <%= upload.originalName %>
+          </a>
+        <% }); %>
+      <% } else { %>
+        <p>Nenhum PDF enviado ainda.</p>
+      <% } %>
+    </div>
   </div>
 </body>
 </html>
