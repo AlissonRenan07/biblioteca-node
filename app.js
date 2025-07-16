@@ -35,7 +35,9 @@ app.get('/', (req, res) => {
   let files = [];
 
   if (fs.existsSync(pdfDir)) {
-    files = fs.readdirSync(pdfDir);
+    files = fs.readdirSync(pdfDir).sort((a, b) =>
+      a.localeCompare(b, undefined, { sensitivity: 'base' })
+    );
   }
 
   res.render('index', { files });
