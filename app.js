@@ -18,7 +18,21 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     // Gera um nome único baseado na data/hora
     const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + '-' + file.originalname);
+
+    // Sanitiza o nome do arquivo:
+    // - Remove acentos
+    // - Troca ç → c
+    // - Troca espaços por hífens
+    // - Remove caracteres especiais
+    const sanitized = file.originalname
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // remove acentos
+      .replace(/ç/g, 'c')
+      .replace(/Ç/g, 'C')
+      .replace(/\s+/g, '-')            // espaços → hífens
+      .replace(/[^a-zA-Z0-9\-_.]/g, ''); // remove outros símbolos
+
+    cb(null, `${uniqueSuffix}-${sanitized}`);
   }
 });
 
