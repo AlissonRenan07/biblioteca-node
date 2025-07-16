@@ -16,7 +16,9 @@ const storage = multer.diskStorage({
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    // Gera um nome único baseado na data/hora
+    const uniqueSuffix = Date.now();
+    cb(null, uniqueSuffix + '-' + file.originalname);
   }
 });
 
